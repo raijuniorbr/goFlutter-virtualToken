@@ -87,10 +87,9 @@ class _FormState extends State<_Form> {
               decoration: const InputDecoration(
                 labelText: 'URL',
               ),
-              keyboardType: TextInputType.number,
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'[\d]')),
-              ],
+              //keyboardType: TextInputType.number,
+              keyboardType: TextInputType.url,
+              //inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[\d]')),],
               validator: (String? value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter the URL';
