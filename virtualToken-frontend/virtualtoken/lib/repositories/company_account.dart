@@ -9,24 +9,28 @@ class CompanyAccountRepository implements ICompanyAccountRepository {
 
   @override
   Future<List<CompanyAccount>> getAll() async {
-    var accounts = await _db.list();
-    return accounts.map((account) => CompanyAccount.fromMap(account)).toList();
+    var accounts = await _db.listJson();
+    //return accounts.map((account) => CompanyAccount.fromMap(account)).toList();
+    return accounts;
   }
 
   @override
   Future<CompanyAccount?> getOne(int id) async {
     var account = await _db.findOne(id);
-    return account != null ? CompanyAccount.fromMap(account) : null;
+    //return account != null ? CompanyAccount.fromMap(account) : null;
+    return account;
   }
 
   @override
   Future<void> insert(CompanyAccount account) async {
-    await _db.insert(account.toMap());
+    //await _db.insert(account.toMap());
+    await _db.insert(account);
   }
 
   @override
   Future<void> update(CompanyAccount account) async {
-    await _db.update(account.toMap());
+    //await _db.update(account.toMap());
+    await _db.update(account);
   }
 
   @override

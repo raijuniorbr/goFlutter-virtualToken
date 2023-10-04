@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:virtualtoken/controllers/home.dart';
 import 'package:virtualtoken/models/company_account.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,6 +23,8 @@ class MyApp extends StatelessWidget {
 
 class HomePage extends StatefulWidget {
   final HomeController _homeController = HomeController();
+
+  HomePage({super.key});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -43,7 +46,7 @@ class _Form extends StatefulWidget {
   final HomeController _homeController;
   final VoidCallback _refreshList;
 
-  _Form(this._homeController, this._refreshList);
+  const _Form(this._homeController, this._refreshList);
 
   @override
   _FormState createState() => _FormState();
@@ -103,17 +106,17 @@ class _FormState extends State<_Form> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       await widget._homeController.addCpnyAccount(CompanyAccount(
-                          0,
-                          _accountNameFieldController.text,
-                          'accountKey',
+                          id: 0,
+                          accountName: _accountNameFieldController.text,
+                          accountKey: 'accountKey',
                           //int.parse(_accountURLFieldController.text)));
-                          _accountURLFieldController.text));
+                          accountUrl: _accountURLFieldController.text));
                       _accountNameFieldController.clear();
                       _accountURLFieldController.clear();
                       widget._refreshList();
                     }
                   },
-                  child: Text('Add Account'),
+                  child: const Text('Add Account'),
                 )),
           ],
         ),
@@ -126,7 +129,7 @@ class _CompanyAccountTable extends StatelessWidget {
   final HomeController _homeController;
   final VoidCallback _refreshList;
 
-  _CompanyAccountTable(this._homeController, this._refreshList);
+  const _CompanyAccountTable(this._homeController, this._refreshList);
 
   @override
   Widget build(BuildContext context) {

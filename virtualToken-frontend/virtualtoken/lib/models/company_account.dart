@@ -1,12 +1,17 @@
 class CompanyAccount {
-  final int id;
-  final String accountName;
-  final String accountKey;
-  final String accountUrl;
+  late int id;
+  late String accountName;
+  late String accountKey;
+  late String accountUrl;
 
-  CompanyAccount(this.id, this.accountName, this.accountKey, this.accountUrl);
+  CompanyAccount({required this.id, required this.accountName, required this.accountKey, required this.accountUrl});
 
-  CompanyAccount.fromMap(Map<String, dynamic> data)
+  factory CompanyAccount.fromJson(Map json) {
+    return CompanyAccount(
+        id: json['id'], accountName: json['accountName'], accountKey: json['accountKey'], accountUrl: json['accountUrl']);
+  }
+
+  CompanyAccount.fromMap(Map data)
       : id = data['id'],
         accountName = data['accountName'],
         accountKey = data['accountKey'],

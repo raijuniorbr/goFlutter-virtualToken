@@ -3,7 +3,7 @@ import 'package:virtualtoken/repositories/company_account.dart';
 import 'package:virtualtoken/models/company_account.dart';
 
 class HomeController {
-  CompanyAccountRepository _accountRepo = CompanyAccountRepository(VirtualDB());
+  final CompanyAccountRepository _accountRepo = CompanyAccountRepository(VirtualDB());
 
   Future<List<CompanyAccount>> getAllCpnyAccounts() {
     return _accountRepo.getAll();
