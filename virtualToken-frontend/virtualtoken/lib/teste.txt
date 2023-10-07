@@ -1,0 +1,62 @@
+A sua pretensão salarial é negociável?
+Sim
+
+Você já atuou na Cast?
+não
+
+Você possui o superior completo?
+Sim
+
+Possui certificações?
+Sim
+
+Possui quantos anos de experiência com Java?
+> 5 anos
+
+Possui experiência em Vue, Ionic ou Angular?
+Sim. Com Ionic e Angular.
+
+Possui conhecimento em quais linguagens de programação?
+Java, Flutter, Go
+
+Possui experiência com Wicket?
+não
+
+Possui experiência com Apache Struts?
+Sim
+
+Possui experiência com nuvem (AWS, Azure)?
+Sim, GCP.
+
+Possui experiência com arquitetura em Microserviços, code patterns, SOLID ou Clean Code?
+Sim
+
+Possui experiência em Banco de dados relacional e não relacionais?
+Sim
+
+Possui experiência em API REST?
+Sim
+
+Possui experiência em Spring Boot (Spring Data, Spring Rest)?
+Sim
+
+Possui experiência em testes unitários (Mockito; SpringTest)?
+Sim, ambos.
+
+Possui conhecimento em Git?
+Sim
+
+Possui experiência com Maven 3+?
+Sim
+
+Possui experiência com Swagger ou Open API?
+Sim
+
+Possui experiência com mensageria? (Kafka, RabbitMQ)?
+Sim. TIBCO EMS, IBM MQ Series, Kafka
+
+Possui experiência com Containers (Docker, Docker Compose, Kubernetes)?
+Sim
+
+Possui conhecimento em metodologias ágeis (Scrum/Kanban)?
+Sim

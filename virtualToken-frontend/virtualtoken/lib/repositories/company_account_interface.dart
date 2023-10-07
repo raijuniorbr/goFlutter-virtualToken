@@ -1,9 +1,9 @@
-import 'package:virtualtoken/models/company_account.dart';
+import 'package:virtualtoken/models/company_account_token.dart';
 
 abstract class ICompanyAccountRepository {
-  Future<List<CompanyAccount>> getAll();
-  Future<CompanyAccount?> getOne(int id);
-  Future<void> insert(CompanyAccount companyAccount);
-  Future<void> update(CompanyAccount companyAccount);
+  Future<List<CompanyAccountToken>> getAll();
+  Future<CompanyAccountToken?> getOne(int id);
+  Future<void> insert(CompanyAccountToken companyAccount);
+  Future<void> update(CompanyAccountToken companyAccount);
   Future<void> delete(int id);
 }

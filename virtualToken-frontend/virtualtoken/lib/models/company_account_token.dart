@@ -1,17 +1,17 @@
-class CompanyAccount {
+class CompanyAccountToken {
   late int id;
   late String accountName;
   late String accountKey;
   late String accountUrl;
 
-  CompanyAccount({required this.id, required this.accountName, required this.accountKey, required this.accountUrl});
+  CompanyAccountToken({required this.id, required this.accountName, required this.accountKey, required this.accountUrl});
 
-  factory CompanyAccount.fromJson(Map json) {
-    return CompanyAccount(
+  factory CompanyAccountToken.fromJson(Map json) {
+    return CompanyAccountToken(
         id: json['id'], accountName: json['accountName'], accountKey: json['accountKey'], accountUrl: json['accountUrl']);
   }
 
-  CompanyAccount.fromMap(Map data)
+  CompanyAccountToken.fromMap(Map data)
       : id = data['id'],
         accountName = data['accountName'],
         accountKey = data['accountKey'],

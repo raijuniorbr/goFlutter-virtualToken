@@ -1,10 +1,10 @@
 import 'dart:math';
 import 'package:dio/dio.dart';
-import 'package:virtualtoken/models/company_account.dart';
+import 'package:virtualtoken/models/company_account_token.dart';
 
 class VirtualDB {
-  final String _accounts_URL = 'http://MacBookRaiJr.local:5000/accounts';
-  List<CompanyAccount> _accounts = [];
+  final String _accounts_URL = "http://MacBookRaiJr.local:5000/accounts";
+  List<CompanyAccountToken> _accounts = [];
   static final VirtualDB _db = VirtualDB._privateConstructor();
   final Dio dio = Dio();
 
@@ -16,7 +16,7 @@ class VirtualDB {
     return _db;
   }
 
-  Future<void> insert(CompanyAccount account) async {
+  Future<void> insert(CompanyAccountToken account) async {
     account.id = Random().nextInt(1000);
     _accounts.add(account);
   }
@@ -25,24 +25,24 @@ class VirtualDB {
     _accounts.removeWhere((account) => account.id == id);
   }
 
-  Future<void> update(CompanyAccount updatedAccount) async {
+  Future<void> update(CompanyAccountToken updatedAccount) async {
     int i = _accounts.indexWhere((account) => account.id == updatedAccount.id);
     _accounts[i] = updatedAccount;
   }
 
-  Future<List<CompanyAccount>> listJson() async {
+  Future<List<CompanyAccountToken>> listJson() async {
     if (primeiraVez) {
       primeiraVez = false;
-      late List<CompanyAccount> accountsFromJson = [];
+      late List<CompanyAccountToken> accountsFromJson = [];
       try {
         final res = await dio.get(_accounts_URL);
         accountsFromJson = res.data['accounts']
-            .map<CompanyAccount>(
-              (account) => CompanyAccount.fromJson(account),
+            .map<CompanyAccountToken>(
+              (account) => CompanyAccountToken.fromJson(account),
             )
             .toList();
         _accounts.addAll(accountsFromJson);
-      } on DioException catch (e) {
+      } on DioException {
         accountsFromJson = [];
         _accounts = [];
       }
@@ -50,12 +50,12 @@ class VirtualDB {
     return _accounts;
   }
 
-  Future<List<CompanyAccount>> list() async {
+  Future<List<CompanyAccountToken>> list() async {
     await Future.delayed(const Duration(milliseconds: 800));
     return _accounts;
   }
 
-  Future<CompanyAccount?> findOne(int id) async {
+  Future<CompanyAccountToken?> findOne(int id) async {
     return _accounts.firstWhere((account) => account.id == id);
   }
 }
