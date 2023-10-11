@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:virtualtoken/common/utils.dart';
-import 'package:virtualtoken/controllers/home.dart';
+import 'package:virtualtoken/controllers/device_token_controller.dart';
 import '../repositories/listview_card_interface.dart';
 import '../common/globalvars.dart' as globals;
 import '../common/cart_otp.dart';
 import '../models/device_token.dart';
 
-List<ListViewCard> _setItems(
-    List<ListViewCard> theListItem, List<DeviceToken> devtoken, AnimationController controller, HomeController _homeController) {
+List<ListViewCard> _setItems(List<ListViewCard> theListItem, List<DeviceToken> devtoken, AnimationController controller,
+    DeviceTokenController deviceTokenController) {
   for (int i = 0; i < devtoken.length; i++) {
-    theListItem.add(CardOtp('Usuário: ${devtoken[i].accountName}\nCCB Token final: ${devtoken[i].secretKey}', i, controller,
-        devtoken, _homeController));
+    theListItem.add(CardOtp(i, controller, devtoken, deviceTokenController));
   }
   return theListItem;
 }
 
 class TokenGenerator extends StatefulWidget {
-  final HomeController _homeController;
-  final VoidCallback _refreshList;
+  final DeviceTokenController deviceTokenController = DeviceTokenController();
 
-  const TokenGenerator(this._homeController, this._refreshList);
+  TokenGenerator({super.key});
 
   @override
   TokenGeneratorState createState() => TokenGeneratorState();
@@ -41,7 +39,7 @@ class TokenGeneratorState extends State<TokenGenerator> with TickerProviderState
   void initState() {
     super.initState();
     //Preenche a matriz dos tokens
-    devtoken = widget._homeController.getAllDeviceTokensSync();
+    devtoken = widget.deviceTokenController.getAllDeviceTokensSync();
 
     // inicia controller
     controller = AnimationController(
@@ -49,17 +47,17 @@ class TokenGeneratorState extends State<TokenGenerator> with TickerProviderState
       duration: Duration(seconds: globals.tokenPeriod),
     );
 
-    items = _setItems(items, devtoken, controller, widget._homeController);
+    items = _setItems(items, devtoken, controller, widget.deviceTokenController);
 
     // vincula o listener
     controller.addListener(() {
       if (controller.value <= 0.01) {
-        widget._homeController.getToken(1, devtoken);
+        widget.deviceTokenController.getToken(1, devtoken);
       }
     });
 
     // atualiza a matriz dos tokens com os respectivos virtuais
-    widget._homeController.getToken(1, devtoken);
+    widget.deviceTokenController.getToken(1, devtoken);
 
     // controle específico para o tipo de animação escolhida
     controller.forward(from: controller.value == 0.0 ? 1.0 : controller.value);
@@ -117,11 +115,14 @@ class TokenGeneratorState extends State<TokenGenerator> with TickerProviderState
           appBar: AppBar(
             leading: IconButton(
               onPressed: _onExitPressed,
-              icon: const Icon(Icons.arrow_back),
+              icon: const Icon(Icons.menu),
             ),
             actions: [
               IconButton(
-                icon: const Icon(Icons.abc),
+                icon: const Icon(
+                  Icons.abc,
+                  semanticLabel: "Botão para editar a lista",
+                ),
                 onPressed: () {
                   if (controller.isAnimating) {
                     controller.stop();
@@ -154,17 +155,13 @@ class TokenGeneratorState extends State<TokenGenerator> with TickerProviderState
               ),
             ],
             //titleTextStyle: const TextStyle(color: Colors.black),
-            backgroundColor: Colors.white54,
-            foregroundColor: Colors.black,
-            title: const Row(
+            backgroundColor: const Color(globals.colorBlackApp),
+            //foregroundColor: Colors.black,
+            title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-//                Image.asset('assets/img/logoNovo.png', height: globals.iconSizeCCB, fit: BoxFit.cover),
-                Text(
-                  '\t\t\t\t\t\t\t\t\t\t',
-                  style: TextStyle(color: Colors.black),
-                  semanticsLabel: 'Logotipo CCB.',
-                ),
+                Image.asset('assets/images/naran-completo-61px_prancheta.png',
+                    height: globals.iconSizeCCB, fit: BoxFit.cover, semanticLabel: 'Logotipo Naran.'),
               ],
             ),
           ),
@@ -182,7 +179,8 @@ class TokenGeneratorState extends State<TokenGenerator> with TickerProviderState
                   child: ListTile(
                     //leading: (edit) ? item.buildLeading(context) : null,
                     subtitle: item.buildSubtitle(context),
-                    trailing: (edit) ? item.buildTrailing(context) : null,
+                    //trailing: (edit) ? item.buildTrailing(context) : null,
+                    trailing: item.buildTrailing(context),
                     title: item.buildTitle(context),
                   ),
                 );

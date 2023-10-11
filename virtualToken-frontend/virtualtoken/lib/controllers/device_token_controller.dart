@@ -1,31 +1,11 @@
-//import 'package:virtualtoken/db/virtual_db.dart';
-//import 'package:virtualtoken/repositories/company_account_token.dart';
-//import 'package:virtualtoken/models/company_account_token.dart';
-import 'dart:convert';
 import 'package:virtualtoken/db/virtual_token_db.dart';
 import 'package:virtualtoken/repositories/device_token.dart';
 import 'package:virtualtoken/models/device_token.dart';
 import '../common/globalvars.dart' as globals;
+import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeController {
-  //final CompanyAccountRepository _accountRepo = CompanyAccountRepository(VirtualDB());
+class DeviceTokenController {
   final DeviceTokenRepository _deviceTokensRepo = DeviceTokenRepository(VirtualTokenDB());
-
-  /// Accounts
-  ///
-/*
-  Future<List<CompanyAccountToken>> getAllCpnyAccounts() {
-    return _accountRepo.getAll();
-  }
-
-  Future<void> addCpnyAccount(CompanyAccountToken account) {
-    return _accountRepo.insert(account);
-  }
-
-  Future<void> removeCpnyAccount(int id) {
-    return _accountRepo.delete(id);
-  }
-*/
 
   /// DeviceTokens
   ///
@@ -54,5 +34,32 @@ class HomeController {
 
   List<DeviceToken> getAllDeviceTokensSync() {
     return _deviceTokensRepo.getAllSync();
+  }
+
+  Future<SharedPreferences> loadSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    // Para debugar... globals.debug == true
+    // Irá resetar o token:
+    if (globals.mockReset || prefs.getStringList('tokens') == null || prefs.getStringList('tokens').toString() == '[]') {
+      globals.mockReset = false;
+      List<String>? tokens = prefs.getStringList('tokens');
+
+      if (globals.mockPopListTokens) {
+        //addTokenOnDevice(globals.jsonTokensDefault);
+        tokens = [globals.jsonTokenMock];
+        prefs.setStringList('tokens', tokens);
+      } else {
+        //tokens = [globals.jsonTokensDefault];
+        tokens = [''];
+        prefs.setStringList('tokens', tokens);
+      }
+    }
+
+    globals.jsonTokens = prefs.getStringList('tokens')?[0];
+    // Logs
+    //globals.logsCCB = prefs.getStringList('logs')?[0] ?? globals.logsCCBDefault;
+
+    return prefs;
   }
 }

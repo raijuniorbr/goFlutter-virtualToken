@@ -35,12 +35,12 @@ class VirtualTokenDB {
       late List<DeviceToken> devicetokensFromJson = [];
       try {
         final res = await dio.get(_data_URL);
-        devicetokensFromJson = listFromJson(res.data['deviceTokens']);
-        // devicetokensFromJson = res.data['deviceTokens']
-        //     .map<DeviceToken>(
-        //       (account) => DeviceToken.fromJson(account),
-        //     )
-        //     .toList();
+        //devicetokensFromJson = listFromJson(res.data['deviceTokens']);
+        devicetokensFromJson = res.data['deviceTokens']
+            .map<DeviceToken>(
+              (account) => DeviceToken.fromJson(account),
+            )
+            .toList();
         _deviceTokens.addAll(devicetokensFromJson);
       } on DioException {
         devicetokensFromJson = [];

@@ -66,7 +66,8 @@ class DeviceToken {
 
     final totp = TOTP(secret: secretKey, digits: 6, interval: globals.tokenPeriod);
     numOtp = totp.now();
-    retorno = '$numOtp |${totp.verify(otp: numOtp)}';
+    //retorno = '$numOtp |${totp.verify(otp: numOtp)}';
+    retorno = numOtp;
     return retorno;
   }
 

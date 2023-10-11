@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:virtualtoken/controllers/home.dart';
+import 'package:virtualtoken/controllers/device_token_controller.dart';
 import 'package:virtualtoken/models/device_token.dart';
-import 'package:uuid/uuid.dart';
 
 class DeviceTokenTable extends StatelessWidget {
-  final HomeController _homeController;
+  final DeviceTokenController _deviceTokenController;
   final VoidCallback _refreshList;
 
-  const DeviceTokenTable(this._homeController, this._refreshList, {super.key});
+  const DeviceTokenTable(this._deviceTokenController, this._refreshList, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<DeviceToken>>(
-        future: _homeController.getAllDeviceTokens(),
+        future: _deviceTokenController.getAllDeviceTokens(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Center(child: Text("Carregando ..."));
@@ -38,7 +37,7 @@ class DeviceTokenTable extends StatelessWidget {
               DataCell(IconButton(
                 icon: const Icon(Icons.delete),
                 onPressed: () async {
-                  await _homeController.removeDeviceTokens(deviceToken.deviceId);
+                  await _deviceTokenController.removeDeviceTokens(deviceToken.deviceId);
                   _refreshList();
                 },
               )),

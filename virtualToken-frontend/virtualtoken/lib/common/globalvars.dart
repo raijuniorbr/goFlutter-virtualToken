@@ -19,7 +19,9 @@ const routeListTokens = '/token/ListTokens';
 const routeShowAlert = '/common/show_alert';
 
 /// Default colors
-const colorBlueCCB = 0xFF005CA9;
+const colorBlueApp = 0xFF005CA9;
+const colorGreenApp = 0xFF19A89D;
+const colorBlackApp = 0xFF252526;
 
 /// Size of the icons
 const double iconSizeCCB = 48;
@@ -27,17 +29,18 @@ const double iconSizeCCB = 48;
 ///--------------------------------------
 /// Sessão para DEBUG e MOCKs
 ///
-bool debugMode = true;
+bool debugMode = false;
 bool mockReset = false;
 bool mockPopListTokens = false;
 
 const jsonTokensDefault =
-    '{"deviceId": "553469b4-6468-11ee-b72b-8bf7342003ad", "accountName": "Mock Default 0", "secretKeyURL": "http://MacBookRaiJr.local:5000/accounts","secretKey":"YRXVKXETDFHQXABO", "virtualTotp": ""}';
+    '{"deviceId": "553469b4-6468-11ee-b72b-8bf7342003ad", "accountName": "Mock Default 0", "secretKeyURL": "Naran Consult & Trainning","secretKey":"YRXVKXETDFHQXABO", "virtualTotp": ""}';
 const jsonTokenMock = '['
-    '{"deviceId": "61b017ce-6468-11ee-b72b-8bf7342003ad", "accountName": "Mock Default 1", "secretKeyURL": "http://MacBookRaiJr.local:5000/accounts","secretKey":"YRXVKXETDFHQXABO", "virtualTotp": ""},'
-    '{"deviceId": "6bacd3f2-6468-11ee-b72b-8bf7342003ad", "accountName": "Mock Default 2", "secretKeyURL": "http://MacBookRaiJr.local:5000/accounts","secretKey":"YRXVKXETDFHQXABO", "virtualTotp": ""},'
-    '{"deviceId": "710d8dfa-6468-11ee-b72b-8bf7342003ad", "accountName": "Mock Default 3", "secretKeyURL": "http://MacBookRaiJr.local:5000/accounts","secretKey":"YRXVKXETDFHQXABO", "virtualTotp": ""},'
-    '{"deviceId": "770d4916-6468-11ee-b72b-8bf7342003ad", "accountName": "Mock Default 4", "secretKeyURL": "http://MacBookRaiJr.local:5000/accounts","secretKey":"YRXVKXETDFHQXABO", "virtualTotp": ""}'
+    '{"deviceId": "553469b4-6468-11ee-b72b-8bf7342003ad", "accountName": "Mock Default 0", "secretKeyURL": "Naran Consult & Trainning","secretKey":"YRXVKXETDFHQXABO", "virtualTotp": ""},'
+    '{"deviceId": "61b017ce-6468-11ee-b72b-8bf7342003ad", "accountName": "Mock Default 1", "secretKeyURL": "Facebook","secretKey":"WRXVKXETDFHQXABO", "virtualTotp": ""},'
+    '{"deviceId": "6bacd3f2-6468-11ee-b72b-8bf7342003ad", "accountName": "Mock Default 2", "secretKeyURL": "Instagram","secretKey":"ZRXVKXETDFHQXABO", "virtualTotp": ""},'
+    '{"deviceId": "710d8dfa-6468-11ee-b72b-8bf7342003ad", "accountName": "Mock Default 3", "secretKeyURL": "TikTok","secretKey":"URXVKXETDFHQXABO", "virtualTotp": ""},'
+    '{"deviceId": "770d4916-6468-11ee-b72b-8bf7342003ad", "accountName": "Mock Default 4", "secretKeyURL": "Ex Twitter","secretKey":"TRXVKXETDFHQXABO", "virtualTotp": ""}'
     ']';
 
 ///--------------------------------------

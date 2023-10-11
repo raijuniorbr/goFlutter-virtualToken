@@ -1,25 +1,24 @@
-/// messageItem.dart
-///
-/// Structure for display generated virtual tokens
-///
+// Copyright 2023 Naran. All rights reserved.
+// Use of this source code is governed by a BSD-style license.
+//
 import 'package:flutter/material.dart';
 import '../repositories/listview_card_interface.dart';
 import '../models/device_token.dart';
-import '../common/utils.dart';
 import '../common/custom_timer_painter.dart';
 import '../common/globalvars.dart' as globals;
-import '../controllers/home.dart';
+import '../controllers/device_token_controller.dart';
 
-/// A ListItem that contains data to display a seed.
+/// card_otp.dart
+///
+/// Structure for display generated virtual tokens
+///
 class CardOtp implements ListViewCard {
-  final String sender;
   final int body;
   final AnimationController controller;
   final List<DeviceToken> devtoken;
-  final HomeController _homeController;
+  final DeviceTokenController _deviceTokenController;
 
-  // the class constructor
-  CardOtp(this.sender, this.body, this.controller, this.devtoken, this._homeController);
+  CardOtp(this.body, this.controller, this.devtoken, this._deviceTokenController);
 
   /// this implementation will be override theses methods:
   /// - Leading
@@ -28,6 +27,11 @@ class CardOtp implements ListViewCard {
   /// - Trailing
   ///
 
+  /// buildLeading
+  ///
+  /// [ ] Marcado
+  /// [ ] Desmarcado
+  ///
   @override
   Widget buildLeading(BuildContext context) {
     return ElevatedButton(
@@ -62,13 +66,29 @@ class CardOtp implements ListViewCard {
     */
   }
 
+  /// buildTitle
+  ///
+  /// In this case, Title will be lines with small size fonts
+  ///+----------------------------+
+  ///| + Company
+  ///| + Account name (secretURL)
+  ///+----------------------------+
   @override
   Widget buildTitle(BuildContext context) => Text(
-        sender,
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize),
+        "${devtoken[body].accountName}\n${devtoken[body].secretKeyURL}",
+        textAlign: TextAlign.left,
+        style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
+            color: const Color(globals.colorGreenApp)),
       );
 
+  /// buildSubtitle
+  ///
+  /// In this case, Subtitle will be lines with medium size fonts
+  ///+-------------------------+
+  ///| + VirtualTotP (seed)
+  ///+-------------------------+
   @override
   //Widget buildSubtitle(BuildContext context) => Text(body);
   Widget buildSubtitle(BuildContext context) {
@@ -76,7 +96,7 @@ class CardOtp implements ListViewCard {
         animation: controller,
         builder: (context, child) {
           return SizedBox(
-            height: 80,
+            height: 50,
             child: Stack(
               children: <Widget>[
                 Column(
@@ -84,20 +104,21 @@ class CardOtp implements ListViewCard {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          _homeController.getToken(0, devtoken)![body].virtualTotp!,
+                          "${_deviceTokenController.getToken(0, devtoken)![body].virtualTotp!.substring(0, 3)} ${_deviceTokenController.getToken(0, devtoken)![body].virtualTotp!.substring(3, 6)}",
                           textAlign: TextAlign.left,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: Theme.of(context).textTheme.headlineLarge?.fontSize,
-                              color: const Color(globals.colorBlueCCB)),
+                              fontSize: Theme.of(context).textTheme.headlineMedium?.fontSize,
+                              color: Colors.black),
                         ),
                       ],
                     ),
-                    SizedBox(
+// [ Progressbar ]
+/*                     SizedBox(
                       height: 30,
                       child: Align(
                         alignment: FractionalOffset.center,
@@ -111,6 +132,7 @@ class CardOtp implements ListViewCard {
                         ),
                       ),
                     ),
+ */
                   ],
                 ),
               ],
@@ -119,6 +141,10 @@ class CardOtp implements ListViewCard {
         });
   }
 
+  /// buildTrailing
+  ///
+  /// On the right side ... in this case a Circular Progress image
+  ///
   @override
   //Widget buildTrailing(BuildContext context) => const Text('buildingTrailler');
   Widget buildTrailing(BuildContext context) {
@@ -127,7 +153,7 @@ class CardOtp implements ListViewCard {
         builder: (context, child) {
           return SizedBox(
             width: 30,
-            height: 70,
+            height: 50,
             child: Stack(
               children: <Widget>[
                 Column(
@@ -139,8 +165,8 @@ class CardOtp implements ListViewCard {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         SizedBox(
-                          width: 20,
-                          height: 20,
+                          width: 16,
+                          height: 16,
                           child: Align(
                             alignment: FractionalOffset.center,
                             child: AspectRatio(
@@ -150,10 +176,10 @@ class CardOtp implements ListViewCard {
                                   Positioned.fill(
                                     // Circle !!!
                                     child: CustomPaint(
-                                        painter: CustomTimerPainter(
+                                        painter: CircularTimerPainter(
                                       animation: controller,
-                                      backgroundColor: Colors.orange,
-                                      color: const Color(globals.colorBlueCCB),
+                                      backgroundColor: Colors.white10,
+                                      color: const Color(globals.colorGreenApp),
                                     )),
                                   ),
                                 ],

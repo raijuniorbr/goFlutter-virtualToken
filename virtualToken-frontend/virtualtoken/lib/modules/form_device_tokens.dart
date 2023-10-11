@@ -1,13 +1,16 @@
+// Copyright 2023 Naran. All rights reserved.
+// Use of this source code is governed by a BSD-style license.
+//
 import 'package:flutter/material.dart';
-import 'package:virtualtoken/controllers/home.dart';
+import 'package:virtualtoken/controllers/device_token_controller.dart';
 import 'package:virtualtoken/models/device_token.dart';
 import 'package:uuid/uuid.dart';
 
 class FormDeviceToken extends StatefulWidget {
-  final HomeController _homeController;
+  final DeviceTokenController _deviceTokenController;
   final VoidCallback _refreshList;
 
-  const FormDeviceToken(this._homeController, this._refreshList, {super.key});
+  const FormDeviceToken(this._deviceTokenController, this._refreshList, {super.key});
 
   @override
   FormDeviceTokenState createState() => FormDeviceTokenState();
@@ -83,8 +86,8 @@ class FormDeviceTokenState extends State<FormDeviceToken> {
                 child: ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      await widget._homeController.addDeviceTokens(DeviceToken(
-                          deviceId: Uuid().v1(),
+                      await widget._deviceTokenController.addDeviceTokens(DeviceToken(
+                          deviceId: const Uuid().v1(),
                           accountName: _accountNameFieldController.text,
                           secretKey: _secretKeyFieldController.text,
                           //int.parse(_secretKeyURLFieldController.text)));

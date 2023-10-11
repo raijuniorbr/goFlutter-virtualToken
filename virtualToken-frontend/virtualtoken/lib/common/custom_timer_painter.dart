@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-class CustomTimerPainter extends CustomPainter {
-  CustomTimerPainter({
+class CircularTimerPainter extends CustomPainter {
+  CircularTimerPainter({
     required this.animation,
     required this.backgroundColor,
     required this.color,
@@ -26,7 +26,7 @@ class CustomTimerPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(CustomTimerPainter oldDelegate) {
+  bool shouldRepaint(CircularTimerPainter oldDelegate) {
     return animation.value != oldDelegate.animation.value ||
         color != oldDelegate.color ||
         backgroundColor != oldDelegate.backgroundColor;
@@ -45,7 +45,7 @@ class ProgressPainter extends CustomPainter {
     ..strokeWidth = 10;
 
   Paint valuePaint = Paint()
-    ..color = Colors.orangeAccent
+    ..color = Colors.white10
     ..style = PaintingStyle.stroke
     ..strokeCap = StrokeCap.round
     ..strokeWidth = 10;
